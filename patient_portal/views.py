@@ -6,10 +6,10 @@ Day 0 renders mock data. Day 1: reads and writes go through scheduling.services
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_http_methods
 
 from core.auth import role_required
-from core.demo import demo_state
+from core.demo import demo_state, mock_submit
 from core.roles import Role
 from core.rules import MAX_FUTURE_APPOINTMENTS
 from patient_portal import mock
@@ -44,10 +44,12 @@ def book_time(request: HttpRequest) -> HttpResponse:
     )
 
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @role_required(Role.PATIENT)
 def book_confirm(request: HttpRequest) -> HttpResponse:
     """DES-007 step 3: reason and confirm (FR-BOOK-004/005/006, AC-009 – AC-011)."""
+    if request.method == "POST":  # Day 0: nothing saved; Day 1 calls scheduling.services.book
+        return mock_submit("my_appointments", "booked")
     state = demo_state(request, frozenset({"error", "taken", "limit", "disabled"}))
     return render(
         request,
@@ -60,10 +62,14 @@ def book_confirm(request: HttpRequest) -> HttpResponse:
     )
 
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @role_required(Role.PATIENT)
 def my_appointments(request: HttpRequest) -> HttpResponse:
     """DES-008 (US-004, US-005, FR-APPT-001, FR-APPT-002, AC-013 – AC-017)."""
+    if request.method == "POST":  # Day 0: nothing saved
+        if "cancel" in request.POST:  # first click asks to confirm (designer's choice)
+            return mock_submit("my_appointments", "confirm")
+        return mock_submit("my_appointments")
     state = demo_state(
         request, frozenset({"booked", "empty", "loading", "error", "disabled", "confirm"})
     )

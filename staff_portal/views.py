@@ -7,10 +7,10 @@ view of patient data writes an AuditLog row (ADR-CARESLOT-E006-001).
 
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_GET, require_http_methods
 
 from core.auth import role_required
-from core.demo import demo_state
+from core.demo import demo_state, mock_submit
 from core.roles import Role
 from patient_portal.mock import SAMPLE_DAY
 from staff_portal import mock
@@ -29,10 +29,12 @@ def desk_day(request: HttpRequest) -> HttpResponse:
     )
 
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @role_required(Role.FRONT_DESK)
 def desk_book(request: HttpRequest) -> HttpResponse:
     """DES-010 (US-008, FR-DESK-002, AC-023 – AC-026): book for a caller or walk-in."""
+    if request.method == "POST":  # Day 0: nothing saved; Day 1 calls scheduling.services.book
+        return mock_submit("desk_day")
     state = demo_state(request, frozenset({"empty", "error", "taken", "limit", "disabled"}))
     results = [] if state == "empty" else mock.patient_search_results()
     return render(
@@ -48,13 +50,18 @@ def desk_book(request: HttpRequest) -> HttpResponse:
     )
 
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @role_required(Role.FRONT_DESK)
 def desk_appointment(request: HttpRequest, appointment_id: int) -> HttpResponse:
     """DES-011 (US-009, US-010, FR-DESK-003, FR-DESK-004, AC-027, AC-028, AC-030, AC-031)."""
     appointment = mock.appointment(appointment_id)
     if appointment is None:
         raise Http404
+    # Day 0: nothing saved; Day 1 calls scheduling.services.move / .cancel
+    if request.method == "POST":
+        if "cancel" in request.POST:  # first click asks to confirm (designer's choice)
+            return mock_submit("desk_appointment", "confirm", appointment_id=appointment_id)
+        return mock_submit("desk_day")
     state = demo_state(request, frozenset({"confirm", "error", "loading", "disabled"}))
     return render(
         request,

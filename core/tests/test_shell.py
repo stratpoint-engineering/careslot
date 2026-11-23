@@ -175,3 +175,48 @@ def test_log_records_carry_request_id() -> None:
     record = logging.LogRecord("x", logging.INFO, __file__, 1, "msg", None, None)
     assert RequestIdFilter().filter(record)
     assert getattr(record, "request_id") == "-"  # noqa: B009
+
+
+# Day 0 form submits: nothing is saved, every form moves to the next screen (never a bare 405).
+# (role, url name, kwargs, POST data, expected redirect name, expected ?state=)
+SUBMITS = [
+    (Role.PATIENT, "book_confirm", {}, {"reason": "Cough"}, "my_appointments", "booked"),
+    (Role.PATIENT, "my_appointments", {}, {"cancel": "1"}, "my_appointments", "confirm"),
+    (Role.PATIENT, "my_appointments", {}, {"confirm_cancel": "1"}, "my_appointments", ""),
+    (Role.FRONT_DESK, "desk_book", {}, {"reason": "Fever"}, "desk_day", ""),
+    (
+        Role.FRONT_DESK,
+        "desk_appointment",
+        {"appointment_id": 1},
+        {"cancel": "1"},
+        "desk_appointment",
+        "confirm",
+    ),
+    (Role.FRONT_DESK, "desk_appointment", {"appointment_id": 1}, {"move_to": "x"}, "desk_day", ""),
+    (Role.CLINIC_ADMIN, "staff_accounts", {}, {"disable": "1"}, "staff_accounts", "disabled"),
+    (Role.CLINIC_ADMIN, "staff_accounts", {}, {"staff_email": "a@b.c"}, "staff_accounts", ""),
+    (Role.CLINIC_ADMIN, "working_hours", {}, {"start-0": "08:00"}, "working_hours", ""),
+]
+
+
+@pytest.mark.parametrize(("role", "name", "kwargs", "data", "target", "state"), SUBMITS)
+def test_day0_form_submits_go_to_the_next_screen(
+    role: Role, name: str, kwargs: dict[str, int], data: dict[str, str], target: str, state: str
+) -> None:
+    response = signed_in(role).post(reverse(name, kwargs=kwargs or None), data)
+    assert response.status_code == 302
+    target_kwargs = kwargs if target == name else None
+    expected = reverse(target, kwargs=target_kwargs or None) + (f"?state={state}" if state else "")
+    assert response["Location"] == expected
+
+
+def test_register_submit_goes_to_signin() -> None:
+    response = Client().post(reverse("register"), {"email": "a@example.com"})
+    assert response["Location"] == reverse("signin")
+
+
+def test_unknown_appointment_post_is_404() -> None:
+    response = signed_in(Role.FRONT_DESK).post(
+        reverse("desk_appointment", kwargs={"appointment_id": 999}), {"cancel": "1"}
+    )
+    assert response.status_code == 404
