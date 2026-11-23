@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% comment %}DES-009 Front desk · day view — Epic E004 — serves US-007, FR-DESK-001, AC-021, AC-022.
+States: empty (no appointments that day), loading, error. Desktop.
+Layout (designer's choice, 2026-11-23): one Card per doctor, side by side; the row scrolls sideways.{% endcomment %}
+{% block title %}Day view{% endblock %}
+{% block content %}
+<div class="card wide">
+  <form method="get">
+    <div class="field narrow">
+      <label for="day">Day</label>
+      <input id="day" name="day" type="date" value="{{ day|date:'Y-m-d' }}">
+    </div>
+  </form>
+  <p class="hint">{{ day|date:"D j M Y" }} · all doctors</p>
+</div>
+{% if state == "loading" %}
+  <div class="card wide">{% include "components/hint.html" with text="Loading…" loading=True %}</div>
+{% elif state == "error" %}
+  <div class="card wide">{% include "components/status.html" with kind="err" text="Couldn’t load this day. Try again." %}</div>
+{% elif not doctors %}
+  <div class="card wide">{% include "components/hint.html" with text="No appointments on this day." %}</div>
+{% else %}
+<div class="cards">
+  {% for doctor in doctors %}
+  <section class="card" aria-labelledby="doc-{{ doctor.doctor_id }}">
+    <h2 id="doc-{{ doctor.doctor_id }}">{{ doctor.doctor_name }}</h2>
+    <p class="hint">{{ doctor.clinic_name }}</p>
+    <ul class="list">
+      {% if not doctor.working %}
+        <li class="hint">Not working on {{ day|date:"l" }}s.</li>
+      {% endif %}
+      {% for slot in doctor.slots %}
+      <li>
+        <strong>{{ slot.starts_at|time:"H:i" }}</strong> ·
+        {% if slot.is_free %}
+          <span class="ok">Free</span> · <a href="{% url 'desk_book' %}">Book</a>
+        {% else %}
+          {{ slot.appointment.patient_name }}<br>
+          <span class="hint">{{ slot.appointment.reason }}</span> · <a href="{% url 'desk_appointment' slot.appointment.id %}">Open</a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

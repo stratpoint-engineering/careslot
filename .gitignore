@@ -1,2 +1,24 @@
 .claude/
 graphify-out/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Django
+db.sqlite3
+staticfiles/
+
+# Environment and secrets — never commit; copy .env.example instead
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% comment %}DES-001 Register — Epic E001 — serves US-001, FR-AUTH-001, AC-001, AC-002. States: error, disabled.{% endcomment %}
+{% block title %}Create your account{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Create your account</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if state == "error" %}
+      {% include "components/field.html" with id="full_name" label="Full name" autocomplete="name" required=True error="Enter your full name." %}
+      {% include "components/field.html" with id="email" label="Email" type="email" autocomplete="email" value="maria.santos@example.com" required=True error="An account with this email already exists. Sign in instead." %}
+    {% else %}
+      {% include "components/field.html" with id="full_name" label="Full name" autocomplete="name" required=True %}
+      {% include "components/field.html" with id="email" label="Email" type="email" autocomplete="email" required=True %}
+    {% endif %}
+    {% include "components/field.html" with id="password" label="Password" type="password" autocomplete="new-password" required=True %}
+    {% if state == "disabled" %}
+      {% include "components/button.html" with label="Create account" busy_label="Creating account…" busy=True %}
+    {% else %}
+      {% include "components/button.html" with label="Create account" %}
+    {% endif %}
+  </form>
+  <p class="hint">Already have an account? <a href="{% url 'signin' %}">Sign in</a></p>
+</div>
+{% endblock %}

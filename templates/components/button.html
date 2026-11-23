@@ -1,0 +1,10 @@
+{% comment %}
+Button (design system). Props:
+  label: str                 — text on the button
+  busy: bool = False         — waiting for the server: shows busy_label, disabled (state: disabled)
+  busy_label: str = label    — e.g. "Booking…"
+  disabled: bool = False     — action can't run yet (muted colours, not-allowed cursor)
+  href: str | None           — render as a link that looks like a Button (ignored when disabled)
+  type: "submit" | "button" = "submit"
+  name/value: str            — optional form field sent with the click
+{% endcomment %}{% if href and not disabled and not busy %}<a class="btn" href="{{ href }}">{{ label }}</a>{% else %}<button class="btn" type="{{ type|default:'submit' }}"{% if name %} name="{{ name }}" value="{{ value }}"{% endif %}{% if disabled or busy %} disabled aria-disabled="true"{% endif %}{% if busy %} aria-busy="true"{% endif %}>{% if busy %}{{ busy_label|default:label }}{% else %}{{ label }}{% endif %}</button>{% endif %}

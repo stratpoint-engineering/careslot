@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% comment %}DES-006 Book · date & slot — Epic E003 — serves US-003, FR-BOOK-002, FR-BOOK-003, AC-007, AC-008, AC-012.
+States: empty (no free times), loading, error. Only free times that haven't started, within 30 days.
+Day 1: changing the date reloads the times with htmx.{% endcomment %}
+{% block title %}Pick a time{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Pick a time</h1>
+  {% include "components/hint.html" with text="Step 2 of 3" %}
+  <p class="hint">{{ choice.doctor_name }} · {{ choice.clinic_name }}</p>
+  {% include "components/field.html" with id="day" label="Date" type="date" value=choice.day|date:"Y-m-d" min=choice.earliest_day|date:"Y-m-d" max=choice.latest_day|date:"Y-m-d" hint="You can book up to 30 days ahead." %}
+  <h2>Free times on {{ choice.day|date:"D j M" }}</h2>
+  <div id="slots">
+    {% if state == "loading" %}
+      {% include "components/hint.html" with text="Loading…" loading=True %}
+    {% elif state == "error" %}
+      {% include "components/status.html" with kind="err" text="Couldn’t load free times. Try again." %}
+    {% elif not slots %}
+      {% include "components/hint.html" with text="No free times on this date. Try another date." %}
+    {% else %}
+      <div class="slots">
+        {% for slot in slots %}{% url 'book_confirm' as confirm_url %}{% include "components/button.html" with label=slot.starts_at|time:"H:i" href=confirm_url %}{% endfor %}
+      </div>
+    {% endif %}
+  </div>
+  <p class="hint"><a href="{% url 'book_doctor' %}">Back</a></p>
+</div>
+{% endblock %}

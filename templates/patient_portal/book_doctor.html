@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% comment %}DES-005 Book · clinic & doctor — Epic E003 — serves US-003, FR-BOOK-001, AC-006, AC-012.
+States: loading (doctor list), error (doctors couldn't load), disabled (Next until a doctor is chosen).
+Day 1: changing the clinic reloads the Doctor list with htmx.{% endcomment %}
+{% block title %}Book an appointment{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Book an appointment</h1>
+  {% include "components/hint.html" with text="Step 1 of 3" %}
+  <form method="get" action="{% url 'book_time' %}">
+    {% include "components/field.html" with id="clinic" label="Clinic" type="select" options=clinic_options %}
+    {% if state == "loading" %}
+      {% include "components/hint.html" with text="Loading…" loading=True %}
+    {% elif state == "error" %}
+      {% include "components/status.html" with kind="err" text="Couldn’t load doctors. Try again." %}
+    {% else %}
+      {% include "components/field.html" with id="doctor" label="Doctor" type="select" options=doctor_options required=True %}
+    {% endif %}
+    {% if state == "default" %}
+      {% include "components/button.html" with label="Next: pick a time" %}
+    {% else %}
+      {% include "components/button.html" with label="Next: pick a time" disabled=True %}
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

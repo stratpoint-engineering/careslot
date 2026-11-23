@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% comment %}DES-011 Front desk · move / cancel — Epic E004 — serves US-009, US-010, FR-DESK-003, FR-DESK-004, AC-027, AC-028, AC-030, AC-031.
+States: confirm (cancel asks for a second click; allowed also within 2 h), error (new time taken),
+loading (free times), disabled (no new time chosen / busy moving).
+Open: moving to another doctor isn't in the PRD — Move offers the same doctor's times only.{% endcomment %}
+{% block title %}Appointment{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Appointment</h1>
+  <ul class="list"><li><strong>{{ appointment.starts_at|date:"D j M Y, H:i" }}</strong> · {{ appointment.doctor_name }} · {{ appointment.clinic_name }}<br>{{ appointment.patient_name }} · <span class="hint">{{ appointment.reason }}</span></li></ul>
+
+  {% if state != "confirm" %}
+  <h2>Move to another time</h2>
+  {% if state == "error" %}{% include "components/status.html" with kind="err" text="That time was just booked. Pick another time. The appointment stays where it was." %}{% endif %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include "components/field.html" with id="move_day" label="Date" type="date" value="2027-10-13" %}
+    {% if state == "loading" %}
+      {% include "components/hint.html" with text="Loading…" loading=True %}
+    {% else %}
+      <fieldset class="field">
+        <legend class="hint">Free times</legend>
+        <div class="slots">
+          {% for slot in move_slots %}{% include "components/button.html" with label=slot.starts_at|time:"H:i" type="submit" name="move_to" value=slot.starts_at|date:"c" %}{% endfor %}
+        </div>
+      </fieldset>
+    {% endif %}
+    {% if state == "disabled" %}
+      {% include "components/button.html" with label="Move here" disabled=True %}
+      {% include "components/button.html" with label="Move here" busy_label="Moving…" busy=True %}
+    {% endif %}
+  </form>
+  {% endif %}
+
+  <h2>Cancel</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% if state == "confirm" %}
+      {% include "components/status.html" with kind="err" text="Cancel this appointment? The slot becomes free." %}
+      {% include "components/button.html" with label="Yes, cancel" name="confirm_cancel" value=appointment.id %}
+      <a href="{% url 'desk_appointment' appointment.id %}">Keep it</a>
+      {% include "components/hint.html" with text="Staff can cancel up to the start, also in the last 2 hours." %}
+    {% else %}
+      {% include "components/button.html" with label="Cancel appointment" name="cancel" value=appointment.id %}
+    {% endif %}
+  </form>
+  <p class="hint"><a href="{% url 'desk_day' %}">Back to the day view</a></p>
+</div>
+{% endblock %}

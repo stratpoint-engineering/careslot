@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: careslot
+          POSTGRES_PASSWORD: careslot
+          POSTGRES_DB: careslot
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U careslot" --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          version: "0.13.6"
+      - name: Install (locked)
+        run: uv sync --locked
+      - name: Lint
+        run: uv run ruff check .
+      - name: Format
+        run: uv run ruff format --check .
+      - name: Types
+        run: uv run mypy .
+      - name: Migrations are up to date
+        run: uv run python manage.py makemigrations --check --dry-run
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.test
+      - name: Migrate on PostgreSQL
+        run: uv run python manage.py migrate --noinput
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.dev
+          DATABASE_URL: postgres://careslot:careslot@localhost:5432/careslot
+      - name: Production settings pass deploy checks
+        run: uv run python manage.py check --deploy --fail-level WARNING
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.prod
+          DJANGO_SECRET_KEY: ci-only-${{ github.run_id }}-not-a-real-secret-value-0123456789abcdef
+          DJANGO_ALLOWED_HOSTS: careslot.example
+          DJANGO_CSRF_TRUSTED_ORIGINS: https://careslot.example
+          DATABASE_URL: postgres://careslot:careslot@localhost:5432/careslot
+          CLINIC_TIME_ZONE: UTC
+      - name: Tests
+        run: uv run pytest
+      - name: Dependency audit
+        run: uv run pip-audit --strict --skip-editable

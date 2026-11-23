@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% comment %}DES-007 Book · reason & confirm — Epic E003 — serves US-003, FR-BOOK-004, FR-BOOK-005, FR-BOOK-006, AC-009, AC-010, AC-011.
+States: error (reason missing), taken (slot just booked), limit (already 2), disabled (busy booking).
+The taken and limit errors come from the server at the moment of booking (Day 1, scheduling.services).{% endcomment %}
+{% block title %}Confirm{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Confirm</h1>
+  {% include "components/hint.html" with text="Step 3 of 3" %}
+  {% if state == "taken" %}
+    {% include "components/status.html" with kind="err" text="This time was just booked by someone else. Pick another time." %}
+  {% elif state == "limit" %}
+    {% include "components/status.html" with kind="err" text="You already have 2 upcoming appointments, the most you can hold. Cancel one to book another." %}
+  {% endif %}
+  <ul class="list"><li><strong>{{ appointment.starts_at|date:"D j M Y, H:i" }}</strong><br>{{ appointment.doctor_name }} · {{ appointment.clinic_name }}</li></ul>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if state == "error" %}
+      {% include "components/field.html" with id="reason" label="What is the visit for?" type="textarea" required=True error="Tell us what the visit is for." %}
+    {% else %}
+      {% include "components/field.html" with id="reason" label="What is the visit for?" type="textarea" value=appointment.reason required=True %}
+    {% endif %}
+    {% if state == "taken" or state == "limit" %}
+      {% include "components/button.html" with label="Book appointment" disabled=True %}
+    {% elif state == "disabled" %}
+      {% include "components/button.html" with label="Book appointment" busy_label="Booking…" busy=True %}
+    {% else %}
+      {% include "components/button.html" with label="Book appointment" %}
+    {% endif %}
+  </form>
+  <p class="hint"><a href="{% url 'book_time' %}">Pick another time</a>{% if state == "limit" %} · <a href="{% url 'my_appointments' %}">My appointments</a>{% endif %}</p>
+</div>
+{% endblock %}

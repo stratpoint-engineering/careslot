@@ -1,0 +1,10 @@
+Hello {{ first_name }},
+
+This is a reminder of your appointment:
+
+{{ appointment.starts_at|date:"D j M Y, H:i" }}
+{{ appointment.doctor_name }} · {{ appointment.clinic_name }}
+
+Can't come? Cancel online up to 2 hours before the start, or call the front desk.
+
+See my appointments: {{ appointments_url }}

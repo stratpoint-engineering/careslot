@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% comment %}DES-004 Working hours — Epic E002 — serves US-013, FR-ADMIN-002, FR-BOOK-003, AC-038, AC-039.
+States: empty (no hours yet), loading, error (end before start), disabled (busy saving).{% endcomment %}
+{% block title %}Working hours{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Working hours</h1>
+  {% if state == "empty" %}{% include "components/status.html" with kind="warn" text="No working hours set for Dr. Ana Reyes. Patients can’t book this doctor yet." %}{% endif %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include "components/field.html" with id="doctor" label="Doctor" type="select" options=doctor_options %}
+    {% include "components/hint.html" with text="Leave a day empty if the doctor doesn’t work that day. Slots are 20 minutes. Changes apply to booking right away." %}
+    {% if state == "loading" %}
+      {% include "components/hint.html" with text="Loading…" loading=True %}
+    {% else %}
+      {% for day in days %}
+      <fieldset class="field">
+        <legend class="visually-hidden">{{ day.label }}</legend>
+        <label for="start-{{ day.weekday }}">{{ day.label }}</label>
+        <div class="pair">
+          <input id="start-{{ day.weekday }}" name="start-{{ day.weekday }}" type="time" value="{{ day.start|time:'H:i' }}" aria-label="{{ day.label }} start"{% if day.error %} aria-invalid="true" aria-describedby="err-{{ day.weekday }}"{% endif %}>
+          <input id="end-{{ day.weekday }}" name="end-{{ day.weekday }}" type="time" value="{{ day.end|time:'H:i' }}" aria-label="{{ day.label }} end"{% if day.error %} aria-invalid="true" aria-describedby="err-{{ day.weekday }}"{% endif %}>
+        </div>
+        {% if day.error %}<span class="err" id="err-{{ day.weekday }}">{{ day.error }}</span>{% endif %}
+      </fieldset>
+      {% endfor %}
+      {% if state == "disabled" %}
+        {% include "components/button.html" with label="Save hours" busy_label="Saving…" busy=True %}
+      {% else %}
+        {% include "components/button.html" with label="Save hours" %}
+      {% endif %}
+    {% endif %}
+  </form>
+</div>
+{% endblock %}

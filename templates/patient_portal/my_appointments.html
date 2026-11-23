@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% comment %}DES-008 My appointments — Epic E003 — serves US-004, US-005, FR-APPT-001, FR-APPT-002, AC-013 – AC-017.
+States: booked (green line after booking), empty, loading, error (cancel failed),
+disabled (Cancel within 2 h; Book at the limit of 2), confirm (cancel asks for a second click).{% endcomment %}
+{% block title %}My appointments{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>My appointments</h1>
+  {% if state == "booked" %}{% with first=appointments.0 %}<p class="ok" role="status">Booked: {{ first.starts_at|date:"D j M Y, H:i" }} with {{ first.doctor_name }}.</p>{% endwith %}{% endif %}
+  {% if state == "error" %}{% include "components/status.html" with kind="err" text="Couldn’t cancel your appointment. Try again." %}{% endif %}
+  {% if state == "loading" %}
+    {% include "components/hint.html" with text="Loading…" loading=True %}
+  {% elif not appointments %}
+    {% include "components/hint.html" with text="You have no upcoming appointments." %}
+  {% else %}
+  <ul class="list">
+    {% for appointment in appointments %}
+    <li>
+      <strong>{{ appointment.starts_at|date:"D j M Y, H:i" }}</strong><br>
+      {{ appointment.doctor_name }} · {{ appointment.clinic_name }}<br>
+      <form method="post">
+        {% csrf_token %}
+        {% if not appointment.can_cancel_online %}
+          {% include "components/button.html" with label="Cancel" disabled=True %}
+          <span class="hint">Starts in less than 2 hours. Call the front desk to cancel.</span>
+        {% elif state == "confirm" %}
+          {% include "components/status.html" with kind="err" text="Cancel this appointment? The time becomes free for others." %}
+          {% include "components/button.html" with label="Yes, cancel" name="confirm_cancel" value=appointment.id %}
+          <a href="{% url 'my_appointments' %}">Keep it</a>
+        {% else %}
+          {% include "components/button.html" with label="Cancel" name="cancel" value=appointment.id %}
+        {% endif %}
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if at_limit %}
+    {% include "components/button.html" with label="Book an appointment" disabled=True %}
+    {% include "components/hint.html" with text="You have 2 upcoming appointments, the most you can hold." %}
+  {% elif state != "loading" %}
+    {% url 'book_doctor' as book_url %}{% include "components/button.html" with label="Book an appointment" href=book_url %}
+  {% endif %}
+</div>
+{% endblock %}

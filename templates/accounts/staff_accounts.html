@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% comment %}DES-003 Staff accounts — Epic E001 — serves US-012, FR-ADMIN-001, AC-035, AC-036, AC-037.
+States: empty, loading, error (email taken), disabled (confirm disable + busy create).
+Disable asks for a second click (designer's choice, 2026-11-23).{% endcomment %}
+{% block title %}Staff accounts{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Staff accounts</h1>
+  {% if state == "loading" %}
+    {% include "components/hint.html" with text="Loading…" loading=True %}
+  {% else %}
+    {% if state == "empty" %}
+      {% include "components/hint.html" with text="No staff accounts yet. Create the first one below." %}
+    {% elif state != "error" %}
+    <ul class="list">
+      {% for account in accounts %}
+      <li>
+        <strong>{{ account.full_name }}</strong> · {{ account.role_label }}{% if account.clinic_name %}, {{ account.clinic_name }}{% endif %}
+        {% if account.is_active %}<span class="ok">· Active</span>{% else %}<span class="err">· Disabled</span>{% endif %}<br>
+        <span class="hint">{{ account.email }}</span>
+        {% if account.is_active %}
+        <form method="post">
+          {% csrf_token %}
+          {% if state == "disabled" and forloop.first %}
+            {% include "components/status.html" with kind="err" text="Disable this account? They can no longer sign in." %}
+            {% include "components/button.html" with label="Yes, disable" name="confirm_disable" value=account.id %}
+            <a href="{% url 'staff_accounts' %}">Keep active</a>
+          {% else %}
+            {% include "components/button.html" with label="Disable" name="disable" value=account.id %}
+          {% endif %}
+        </form>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <h2>New staff account</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include "components/field.html" with id="staff_full_name" label="Full name" required=True %}
+      {% if state == "error" %}
+        {% include "components/field.html" with id="staff_email" label="Email" type="email" value="joy@clinic.example" required=True error="This email already has an account." %}
+      {% else %}
+        {% include "components/field.html" with id="staff_email" label="Email" type="email" required=True %}
+      {% endif %}
+      {% include "components/field.html" with id="staff_role" label="Role" type="select" options=role_options %}
+      {% include "components/field.html" with id="staff_clinic" label="Clinic (doctors only)" type="select" options=clinic_options %}
+      {% if state == "disabled" %}
+        {% include "components/button.html" with label="Create account" busy_label="Creating…" busy=True %}
+      {% else %}
+        {% include "components/button.html" with label="Create account" %}
+      {% endif %}
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}No access{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>No access</h1>
+  <p class="err" role="alert">This page is for another role. Sign in with the right account.</p>
+  <p class="hint"><a href="{% url 'home' %}">Go to your home page</a></p>
+</div>
+{% endblock %}

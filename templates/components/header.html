@@ -1,0 +1,17 @@
+{% load static %}{% comment %}
+Header (pattern agreed with the designer, 2026-11-23): logo, the role's links, the user, Sign out.
+Context (from core.context_processors.shell): current_role, current_role_label, nav_links.
+{% endcomment %}<header class="top">
+  <img src="{% static 'img/careslot-logo.svg' %}" alt="">
+  <span class="brand">CareSlot{% if current_role and current_role != "patient" %} · {{ current_role_label }}{% endif %}</span>
+  {% if nav_links %}
+  <nav aria-label="Main">
+    <ul>{% for link in nav_links %}<li><a href="{% url link.url_name %}"{% if request.resolver_match.url_name == link.url_name %} aria-current="page"{% endif %}>{{ link.label }}</a></li>{% endfor %}</ul>
+  </nav>
+  {% endif %}
+  <span class="spacer"></span>
+  {% if current_role %}
+  <span class="hint">{{ current_role_label }}</span>
+  <form method="post" action="{% url 'signout' %}">{% csrf_token %}<button class="link-button" type="submit">Sign out</button></form>
+  {% endif %}
+</header>

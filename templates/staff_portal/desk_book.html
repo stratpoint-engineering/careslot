@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% comment %}DES-010 Front desk · book for patient — Epic E004 — serves US-008, FR-DESK-002, AC-023 – AC-026.
+States: empty (no patient found → create a record), error (reason missing), taken, limit (no staff
+override), disabled (busy). Walk-ins are booked the same way.{% endcomment %}
+{% block title %}Book for patient{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Book for patient</h1>
+  <form method="get">
+    {% include "components/field.html" with id="q" label="Find patient (name, email or phone)" type="search" value="Santos" %}
+  </form>
+  {% if state == "empty" %}
+    {% include "components/hint.html" with text="No patient found. Create a record:" %}
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include "components/field.html" with id="new_full_name" label="Full name" required=True %}
+      {% include "components/field.html" with id="new_email" label="Email" type="email" hint="Needed for the email reminder." %}
+      {% include "components/field.html" with id="new_phone" label="Phone" type="tel" %}
+      {% include "components/button.html" with label="Create record" %}
+    </form>
+  {% else %}
+    <ul class="list">
+      {% for patient in results %}
+      <li><strong>{{ patient.full_name }}</strong> · {{ patient.email }} · {{ patient.phone }}</li>
+      {% endfor %}
+    </ul>
+    <h2>Appointment</h2>
+    {% if state == "taken" %}
+      {% include "components/status.html" with kind="err" text="This time was just booked (online). Go back to the day view and pick another time." %}
+    {% elif state == "limit" %}
+      {% include "components/status.html" with kind="err" text="This patient already has 2 upcoming appointments. Cancel one before booking another." %}
+    {% endif %}
+    <ul class="list"><li><strong>{{ slot.starts_at|date:"D j M Y, H:i" }}</strong> · {{ doctor_name }} · {{ clinic_name }}<br><span class="hint">Patient: {{ results.0.full_name }}</span></li></ul>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% if state == "error" %}
+        {% include "components/field.html" with id="reason" label="Reason for visit" type="textarea" rows=2 required=True error="Enter the reason for the visit." %}
+      {% else %}
+        {% include "components/field.html" with id="reason" label="Reason for visit" type="textarea" rows=2 value="Fever since yesterday" required=True %}
+      {% endif %}
+      {% if state == "taken" or state == "limit" %}
+        {% include "components/button.html" with label="Book" disabled=True %}
+      {% elif state == "disabled" %}
+        {% include "components/button.html" with label="Book" busy_label="Booking…" busy=True %}
+      {% else %}
+        {% include "components/button.html" with label="Book" %}
+      {% endif %}
+    </form>
+    <p class="hint"><a href="{% url 'desk_day' %}">Back to the day view</a></p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% comment %}
+Hint (design system): --muted-foreground, 13 px. Props: text: str.
+Also the agreed loading pattern: {% include "components/hint.html" with text="Loading…" loading=True %}
+{% endcomment %}<p class="hint"{% if loading %} role="status" aria-live="polite"{% endif %}>{{ text }}</p>

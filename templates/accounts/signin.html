@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% comment %}DES-002 Sign in — Epic E001 — serves US-002, FR-AUTH-002, FR-AUTH-003, FR-AUTH-004, AC-003, AC-004, AC-005.
+States: error (wrong password), locked, idle (signed out after 30 min), disabled (busy).
+Day 0: mock sign-in — any email and password; the Role picker chooses which screens you see.{% endcomment %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Sign in</h1>
+  {% if state == "error" %}{% include "components/status.html" with kind="err" text="Email or password is wrong." %}{% endif %}
+  {% if state == "locked" %}{% include "components/status.html" with kind="warn" text="Too many wrong passwords. This account is locked for 15 minutes." %}{% endif %}
+  {% if state == "idle" %}{% include "components/hint.html" with text="You were signed out after 30 minutes without activity. Sign in again." %}{% endif %}
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% include "components/field.html" with id="email" label="Email" type="email" autocomplete="email" value=form.email.value required=True error=form.email.errors.0 %}
+    {% include "components/field.html" with id="password" label="Password" type="password" autocomplete="current-password" required=True error=form.password.errors.0 %}
+    {% include "components/field.html" with id="role" label="Role (Day 0 mock sign-in)" type="select" options=role_options hint="Mock sign-in: any email and password work. Real sign-in comes on Day 1." %}
+    {% if state == "locked" %}
+      {% include "components/button.html" with label="Sign in" disabled=True %}
+    {% elif state == "disabled" %}
+      {% include "components/button.html" with label="Sign in" busy_label="Signing in…" busy=True %}
+    {% else %}
+      {% include "components/button.html" with label="Sign in" %}
+    {% endif %}
+  </form>
+  <p class="hint">New patient? <a href="{% url 'register' %}">Create an account</a></p>
+</div>
+{% endblock %}

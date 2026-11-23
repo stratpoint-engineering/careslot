@@ -1,0 +1,6 @@
+{% comment %}
+Status (design system). Props:
+  kind: "ok" (done, --success) | "warn" (attention, --warning) | "err" (failed, --destructive)
+  text: str
+Errors are announced to screen readers (role="alert"); no toasts anywhere.
+{% endcomment %}<p class="{{ kind }}"{% if kind == "err" %} role="alert"{% elif kind %} role="status"{% endif %}>{{ text }}</p>

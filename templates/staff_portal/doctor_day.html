@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% comment %}DES-012 Doctor · my day — Epic E004 — serves US-011, FR-DOC-001, AC-032, AC-033, AC-034.
+States: empty, loading, error. Read-only: no buttons, own appointments only, in time order.{% endcomment %}
+{% block title %}My day{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Today · {{ day.day|date:"D j M Y" }}</h1>
+  <p class="hint">{{ day.doctor_name }} · {{ day.clinic_name }} · read-only</p>
+  {% if state == "loading" %}
+    {% include "components/hint.html" with text="Loading…" loading=True %}
+  {% elif state == "error" %}
+    {% include "components/status.html" with kind="err" text="Couldn’t load your day. Try again." %}
+  {% elif not appointments %}
+    {% include "components/hint.html" with text="No appointments today." %}
+  {% else %}
+  <ul class="list">
+    {% for appointment in appointments %}
+    <li><strong>{{ appointment.starts_at|time:"H:i" }}</strong> · {{ appointment.patient_name }}<br><span class="hint">{{ appointment.reason }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}

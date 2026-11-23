@@ -1,0 +1,24 @@
+{% comment %}
+Field (design system): label above, 1 px border, error message below in --destructive (13 px).
+Props:
+  id: str, name: str = id, label: str
+  type: "text" | "email" | "password" | "date" | "time" | "tel" | "select" | "textarea" = "text"
+  value: str = ""
+  options: list[core.viewmodels.Option]   — for type "select"
+  error: str | None    — inline error under the field (state: error); sets aria-invalid
+  hint: str | None     — Hint line under the field
+  required: bool, autocomplete: str, rows: int = 3, min/max: str (date inputs)
+{% endcomment %}<div class="field">
+  <label for="{{ id }}">{{ label }}</label>
+  {% if type == "select" %}
+  <select id="{{ id }}" name="{{ name|default:id }}"{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}{% if error or hint %} aria-describedby="{% if hint %}{{ id }}-hint {% endif %}{% if error %}{{ id }}-error{% endif %}"{% endif %}>
+    {% for option in options %}<option value="{{ option.value }}"{% if option.selected %} selected{% endif %}>{{ option.label }}</option>{% endfor %}
+  </select>
+  {% elif type == "textarea" %}
+  <textarea id="{{ id }}" name="{{ name|default:id }}" rows="{{ rows|default:3 }}"{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}{% if error or hint %} aria-describedby="{% if hint %}{{ id }}-hint {% endif %}{% if error %}{{ id }}-error{% endif %}"{% endif %}>{{ value|default:"" }}</textarea>
+  {% else %}
+  <input id="{{ id }}" name="{{ name|default:id }}" type="{{ type|default:'text' }}" value="{{ value|default:'' }}"{% if autocomplete %} autocomplete="{{ autocomplete }}"{% endif %}{% if min %} min="{{ min }}"{% endif %}{% if max %} max="{{ max }}"{% endif %}{% if required %} required{% endif %}{% if error %} aria-invalid="true"{% endif %}{% if error or hint %} aria-describedby="{% if hint %}{{ id }}-hint {% endif %}{% if error %}{{ id }}-error{% endif %}"{% endif %}>
+  {% endif %}
+  {% if hint %}<span class="hint" id="{{ id }}-hint">{{ hint }}</span>{% endif %}
+  {% if error %}<span class="err" id="{{ id }}-error">{{ error }}</span>{% endif %}
+</div>

@@ -1,0 +1,36 @@
+# Checks that run on every commit, in every clone. nexus init wrote this file once; it's yours to edit.
+# Commit messages must follow Conventional Commits — feat:, fix:, docs:, chore:, refactor:, test: … —
+# checked by commitizen. /scaffold added the stack's formatter and linter below; keep the commitizen entry.
+# Install once per clone: uv run pre-commit install --hook-type pre-commit --hook-type commit-msg
+default_install_hook_types: [pre-commit, commit-msg]
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.20.0
+    hooks:
+      - id: commitizen
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.6
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-merge-conflict
+      - id: check-toml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+        exclude: ^(docs/|static/js/htmx\.min\.js|graphify-out/|\.mcp\.json$)
+      - id: trailing-whitespace
+        exclude: ^(docs/|static/js/htmx\.min\.js|graphify-out/|\.mcp\.json$)
+  - repo: local
+    hooks:
+      - id: django-migrations-check
+        name: Django migrations are up to date
+        entry: uv run python manage.py makemigrations --check --dry-run
+        language: system
+        pass_filenames: false
+        files: models\.py$
