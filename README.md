@@ -37,7 +37,8 @@ uv run pre-commit install --hook-type pre-commit --hook-type commit-msg   # once
 **Design states:** in development add `?state=…` to see a screen's states with mock data, e.g.
 `/desk/day?state=empty`, `/book/confirm?state=limit`. The states per screen are listed in each template's first comment.
 
-Day 0 is the shell only: pages render mock data, forms don't save (POST answers 405 until Day 1).
+Day 0 is the shell only: pages render mock data. Forms save nothing; submitting moves to the next
+screen of the flow (e.g. Book appointment → My appointments with the green “Booked” line).
 
 ### Against PostgreSQL
 
