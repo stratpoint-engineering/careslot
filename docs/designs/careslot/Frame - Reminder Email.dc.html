@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-013 Reminder Email — Epic E005 — serves US-006, FR-NOTIF-001, AC-018 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-013 Reminder Email</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span></header>
+<!-- state: none — a sent email has no UI states -->
+<p class="state">Email — sent at 18:00 the day before</p>
+<div class="card">
+<p class="hint">Subject: Reminder: your appointment tomorrow at 09:00</p>
+<h1>See you tomorrow</h1>
+<p>Hello Maria,</p>
+<p>This is a reminder of your appointment:</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<p class="hint">Can’t come? Cancel online up to 2 hours before the start, or call the front desk.</p>
+<a class="btn" href="Frame - My Appointments.dc.html">See my appointments</a>
+</div>
+<section class="notes"><h2>DES-013 · Reminder Email</h2><p>Epic E005 · serves US-006, FR-NOTIF-001, AC-018</p><ul><li>One state: the email. English only. Sent to the patient’s email for every appointment that isn’t cancelled, whether booked online or by the front desk.</li><li>Email clients: build with inline styles from the same tokens; the Button becomes a link styled as a Button.</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

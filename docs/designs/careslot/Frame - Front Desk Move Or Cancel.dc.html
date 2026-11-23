@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-011 Front Desk Move Or Cancel — Epic E004 — serves US-009, US-010, FR-DESK-003, FR-DESK-004, AC-027, AC-028, AC-030, AC-031 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-011 Front Desk Move Or Cancel</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot · Front desk</span><a href="Frame - Front Desk Day View.dc.html">Day view</a><a href="Frame - Front Desk Book For Patient.dc.html">Book for patient</a><span class="spacer"></span><span class="hint">Joy (front desk)</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Appointment</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:00</strong> · Dr. Ana Reyes · Clinic A<br>Maria Santos · <span class="hint">Cough for two weeks</span></li></ul><h2>Move to another time</h2>
+<div class="field"><label for="md">Date</label><input id="md" type="date" value="2027-10-13"></div>
+<div class="slots"><a class="btn" href="#">08:20</a><a class="btn" href="#">09:40</a><a class="btn" href="#">10:00</a></div>
+<p class="hint">Chosen: Wed 13 Oct, 09:40</p><button class="btn">Move here</button><h2>Cancel</h2><button class="btn">Cancel appointment</button>
+</div>
+<p class="state">Confirm cancel (second click) — also allowed within 2 hours</p>
+<div class="card">
+<h1>Appointment</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:00</strong> · Dr. Ana Reyes · Clinic A<br>Maria Santos · <span class="hint">Cough for two weeks</span></li></ul><h2>Cancel</h2><p class="err">Cancel Maria Santos’s 08:00 appointment? The slot becomes free.</p><button class="btn">Yes, cancel</button> <a href="#">Keep it</a><p class="hint">Staff can cancel up to the start, also in the last 2 hours.</p>
+</div>
+<!-- state: error -->
+<p class="state">Error — the new time was just taken</p>
+<div class="card">
+<h1>Appointment</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:00</strong> · Dr. Ana Reyes · Clinic A<br>Maria Santos · <span class="hint">Cough for two weeks</span></li></ul><h2>Move to another time</h2><p class="err">09:40 was just booked. Pick another time. The appointment stays at 08:00.</p>
+<div class="field"><label for="md">Date</label><input id="md" type="date" value="2027-10-13"></div>
+<div class="slots"><a class="btn" href="#">08:20</a><a class="btn" href="#">09:40</a><a class="btn" href="#">10:00</a></div>
+<p class="hint">Chosen: Wed 13 Oct, 09:40</p><button class="btn">Move here</button>
+</div>
+<!-- state: loading -->
+<p class="state">Loading — free times for the chosen date</p>
+<div class="card">
+<h1>Appointment</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:00</strong> · Dr. Ana Reyes · Clinic A<br>Maria Santos · <span class="hint">Cough for two weeks</span></li></ul><h2>Move to another time</h2><p class="hint">Loading…</p>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — no new time chosen yet; busy while moving</p>
+<div class="card">
+<h1>Appointment</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:00</strong> · Dr. Ana Reyes · Clinic A<br>Maria Santos · <span class="hint">Cough for two weeks</span></li></ul><h2>Move to another time</h2>
+<div class="field"><label for="md">Date</label><input id="md" type="date" value="2027-10-13"></div>
+<div class="slots"><a class="btn" href="#">08:20</a><a class="btn" href="#">09:40</a><a class="btn" href="#">10:00</a></div>
+<p class="hint">Chosen: Wed 13 Oct, 09:40</p><button class="btn" disabled>Move here</button><p class="hint">Busy: <button class="btn" disabled>Moving…</button></p>
+</div>
+<section class="notes"><h2>DES-011 · Front Desk Move Or Cancel</h2><p>Epic E004 · serves US-009, US-010, FR-DESK-003, FR-DESK-004, AC-027, AC-028, AC-030, AC-031</p><ul><li>Move offers free times of the same doctor (to confirm with the product owner: moving to another doctor isn’t in the PRD).</li><li>After Move or Cancel: back to the day view; the old slot shows Free (AC-027, AC-031).</li><li>Patients can’t move appointments; this screen is staff only.</li><li>Breakpoints: desktop only (staff work on desktops, PRD personas).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

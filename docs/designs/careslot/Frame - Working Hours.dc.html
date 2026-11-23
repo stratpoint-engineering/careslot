@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-004 Working Hours — Epic E002 — serves US-013, FR-ADMIN-002, FR-BOOK-003, AC-038, AC-039 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-004 Working Hours</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot · Admin</span><a href="Frame - Staff Accounts.dc.html">Staff accounts</a><a href="Frame - Working Hours.dc.html">Working hours</a><span class="spacer"></span><span class="hint">Clinic admin</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Working hours</h1>
+<div class="field"><label for="d">Doctor</label><select id="d"><option>Dr. Ana Reyes — Clinic A</option><option>Dr. Ben Lim — Clinic B</option></select></div>
+<p class="hint">Leave a day empty if the doctor doesn’t work that day. Slots are 20 minutes. Changes apply to booking right away.</p>
+<div class="field"><label>Monday</label><input type="time" value="08:00" aria-label="Monday start" style="width:48%"> <input type="time" value="12:00" aria-label="Monday end" style="width:48%"></div><div class="field"><label>Tuesday</label><input type="time" value="08:00" aria-label="Tuesday start" style="width:48%"> <input type="time" value="12:00" aria-label="Tuesday end" style="width:48%"></div><div class="field"><label>Wednesday</label><input type="time" value="13:00" aria-label="Wednesday start" style="width:48%"> <input type="time" value="17:00" aria-label="Wednesday end" style="width:48%"></div><div class="field"><label>Thursday</label><input type="time" value="08:00" aria-label="Thursday start" style="width:48%"> <input type="time" value="12:00" aria-label="Thursday end" style="width:48%"></div><div class="field"><label>Friday</label><input type="time" value="08:00" aria-label="Friday start" style="width:48%"> <input type="time" value="12:00" aria-label="Friday end" style="width:48%"></div><div class="field"><label>Saturday</label><input type="time" value="" aria-label="Saturday start" style="width:48%"> <input type="time" value="" aria-label="Saturday end" style="width:48%"></div><div class="field"><label>Sunday</label><input type="time" value="" aria-label="Sunday start" style="width:48%"> <input type="time" value="" aria-label="Sunday end" style="width:48%"></div><button class="btn">Save hours</button>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no hours set for this doctor</p>
+<div class="card">
+<h1>Working hours</h1><p class="warn">No working hours set for Dr. Ana Reyes. Patients can’t book this doctor yet.</p>
+<div class="field"><label for="d">Doctor</label><select id="d"><option>Dr. Ana Reyes — Clinic A</option><option>Dr. Ben Lim — Clinic B</option></select></div>
+<p class="hint">Leave a day empty if the doctor doesn’t work that day. Slots are 20 minutes. Changes apply to booking right away.</p>
+<div class="field"><label>Monday</label><input type="time" value="" aria-label="Monday start" style="width:48%"> <input type="time" value="" aria-label="Monday end" style="width:48%"></div><div class="field"><label>Tuesday</label><input type="time" value="" aria-label="Tuesday start" style="width:48%"> <input type="time" value="" aria-label="Tuesday end" style="width:48%"></div><div class="field"><label>Wednesday</label><input type="time" value="" aria-label="Wednesday start" style="width:48%"> <input type="time" value="" aria-label="Wednesday end" style="width:48%"></div><div class="field"><label>Thursday</label><input type="time" value="" aria-label="Thursday start" style="width:48%"> <input type="time" value="" aria-label="Thursday end" style="width:48%"></div><div class="field"><label>Friday</label><input type="time" value="" aria-label="Friday start" style="width:48%"> <input type="time" value="" aria-label="Friday end" style="width:48%"></div><div class="field"><label>Saturday</label><input type="time" value="" aria-label="Saturday start" style="width:48%"> <input type="time" value="" aria-label="Saturday end" style="width:48%"></div><div class="field"><label>Sunday</label><input type="time" value="" aria-label="Sunday start" style="width:48%"> <input type="time" value="" aria-label="Sunday end" style="width:48%"></div><button class="btn">Save hours</button>
+</div>
+<!-- state: loading -->
+<p class="state">Loading</p>
+<div class="card">
+<h1>Working hours</h1><p class="hint">Loading…</p>
+</div>
+<!-- state: error -->
+<p class="state">Error — end before start</p>
+<div class="card">
+<h1>Working hours</h1>
+<div class="field"><label for="d">Doctor</label><select id="d"><option>Dr. Ana Reyes — Clinic A</option><option>Dr. Ben Lim — Clinic B</option></select></div>
+<p class="hint">Leave a day empty if the doctor doesn’t work that day. Slots are 20 minutes. Changes apply to booking right away.</p>
+<div class="field"><label>Monday</label><input type="time" value="08:00" aria-label="Monday start" style="width:48%"> <input type="time" value="12:00" aria-label="Monday end" style="width:48%"></div><div class="field"><label>Tuesday</label><input type="time" value="12:00" aria-label="Tuesday start" style="width:48%"> <input type="time" value="10:00" aria-label="Tuesday end" style="width:48%"><span class="err">End time must be after start time.</span></div><div class="field"><label>Wednesday</label><input type="time" value="13:00" aria-label="Wednesday start" style="width:48%"> <input type="time" value="17:00" aria-label="Wednesday end" style="width:48%"></div><div class="field"><label>Thursday</label><input type="time" value="08:00" aria-label="Thursday start" style="width:48%"> <input type="time" value="12:00" aria-label="Thursday end" style="width:48%"></div><div class="field"><label>Friday</label><input type="time" value="08:00" aria-label="Friday start" style="width:48%"> <input type="time" value="12:00" aria-label="Friday end" style="width:48%"></div><div class="field"><label>Saturday</label><input type="time" value="" aria-label="Saturday start" style="width:48%"> <input type="time" value="" aria-label="Saturday end" style="width:48%"></div><div class="field"><label>Sunday</label><input type="time" value="" aria-label="Sunday start" style="width:48%"> <input type="time" value="" aria-label="Sunday end" style="width:48%"></div><button class="btn">Save hours</button>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — busy while saving</p>
+<div class="card">
+<h1>Working hours</h1>
+<div class="field"><label for="d">Doctor</label><select id="d"><option>Dr. Ana Reyes — Clinic A</option><option>Dr. Ben Lim — Clinic B</option></select></div>
+<p class="hint">Leave a day empty if the doctor doesn’t work that day. Slots are 20 minutes. Changes apply to booking right away.</p>
+<div class="field"><label>Monday</label><input type="time" value="08:00" aria-label="Monday start" style="width:48%"> <input type="time" value="12:00" aria-label="Monday end" style="width:48%"></div><div class="field"><label>Tuesday</label><input type="time" value="08:00" aria-label="Tuesday start" style="width:48%"> <input type="time" value="12:00" aria-label="Tuesday end" style="width:48%"></div><div class="field"><label>Wednesday</label><input type="time" value="13:00" aria-label="Wednesday start" style="width:48%"> <input type="time" value="17:00" aria-label="Wednesday end" style="width:48%"></div><div class="field"><label>Thursday</label><input type="time" value="08:00" aria-label="Thursday start" style="width:48%"> <input type="time" value="12:00" aria-label="Thursday end" style="width:48%"></div><div class="field"><label>Friday</label><input type="time" value="08:00" aria-label="Friday start" style="width:48%"> <input type="time" value="12:00" aria-label="Friday end" style="width:48%"></div><div class="field"><label>Saturday</label><input type="time" value="" aria-label="Saturday start" style="width:48%"> <input type="time" value="" aria-label="Saturday end" style="width:48%"></div><div class="field"><label>Sunday</label><input type="time" value="" aria-label="Sunday start" style="width:48%"> <input type="time" value="" aria-label="Sunday end" style="width:48%"></div><button class="btn" disabled>Saving…</button>
+</div>
+<section class="notes"><h2>DES-004 · Working Hours</h2><p>Epic E002 · serves US-013, FR-ADMIN-002, FR-BOOK-003, AC-038, AC-039</p><ul><li>Choosing another doctor loads that doctor’s hours (Loading… in place of the rows).</li><li>After Save, a line <span class="ok">Saved.</span> appears above the button.</li><li>Open: what happens to booked appointments outside reduced hours (ARCH §9 Q5).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-003 Staff Accounts — Epic E001 — serves US-012, FR-ADMIN-001, AC-035, AC-036, AC-037 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-003 Staff Accounts</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot · Admin</span><a href="Frame - Staff Accounts.dc.html">Staff accounts</a><a href="Frame - Working Hours.dc.html">Working hours</a><span class="spacer"></span><span class="hint">Clinic admin</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Staff accounts</h1><ul class="list">
+<li><strong>Joy Mendoza</strong> · Front desk <span class="ok">· Active</span><br><span class="hint">joy@clinic.example</span> <button class="btn">Disable</button></li>
+<li><strong>Dr. Ana Reyes</strong> · Doctor, Clinic A <span class="ok">· Active</span><br><span class="hint">ana.reyes@clinic.example</span> <button class="btn">Disable</button></li>
+<li><strong>Carlo Dizon</strong> · Front desk <span class="err">· Disabled</span><br><span class="hint">carlo@clinic.example</span></li>
+</ul><h2>New staff account</h2>
+<div class="field"><label for="sn">Full name</label><input id="sn" value="Paolo Cruz"></div>
+<div class="field"><label for="se">Email</label><input id="se" type="email" value="paolo@clinic.example"></div>
+<div class="field"><label for="sr">Role</label><select id="sr"><option>Front desk</option><option selected>Doctor</option><option>Clinic admin</option></select></div>
+<div class="field"><label for="sc">Clinic (doctors only)</label><select id="sc"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<button class="btn">Create account</button>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no staff accounts yet</p>
+<div class="card">
+<h1>Staff accounts</h1><p class="hint">No staff accounts yet. Create the first one below.</p><h2>New staff account</h2>
+<div class="field"><label for="sn">Full name</label><input id="sn" value="Paolo Cruz"></div>
+<div class="field"><label for="se">Email</label><input id="se" type="email" value="paolo@clinic.example"></div>
+<div class="field"><label for="sr">Role</label><select id="sr"><option>Front desk</option><option selected>Doctor</option><option>Clinic admin</option></select></div>
+<div class="field"><label for="sc">Clinic (doctors only)</label><select id="sc"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<button class="btn">Create account</button>
+</div>
+<!-- state: loading -->
+<p class="state">Loading</p>
+<div class="card">
+<h1>Staff accounts</h1><p class="hint">Loading…</p>
+</div>
+<!-- state: error -->
+<p class="state">Error — email already has an account</p>
+<div class="card">
+<h1>Staff accounts</h1><h2>New staff account</h2>
+<div class="field"><label for="sn">Full name</label><input id="sn" value="Paolo Cruz"></div>
+<div class="field"><label for="se">Email</label><input id="se" type="email" value="paolo@clinic.example"><span class="err">This email already has an account.</span></div>
+<div class="field"><label for="sr">Role</label><select id="sr"><option>Front desk</option><option selected>Doctor</option><option>Clinic admin</option></select></div>
+<div class="field"><label for="sc">Clinic (doctors only)</label><select id="sc"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<button class="btn">Create account</button>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — confirm disabling an account; busy while creating</p>
+<div class="card">
+<h1>Staff accounts</h1><ul class="list"><li><strong>Joy Mendoza</strong> · Front desk<br>
+<span class="err">Disable this account? Joy can no longer sign in.</span><br><button class="btn">Yes, disable</button> <a href="#">Keep active</a></li></ul><h2>New staff account</h2>
+<div class="field"><label for="sn">Full name</label><input id="sn" value="Paolo Cruz"></div>
+<div class="field"><label for="se">Email</label><input id="se" type="email" value="paolo@clinic.example"></div>
+<div class="field"><label for="sr">Role</label><select id="sr"><option>Front desk</option><option selected>Doctor</option><option>Clinic admin</option></select></div>
+<div class="field"><label for="sc">Clinic (doctors only)</label><select id="sc"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<button class="btn" disabled>Creating…</button>
+</div>
+<section class="notes"><h2>DES-003 · Staff Accounts</h2><p>Epic E001 · serves US-012, FR-ADMIN-001, AC-035, AC-036, AC-037</p><ul><li>Disable needs a second click: the row shows a red question and “Yes, disable” (designer’s choice: one Button style, confirm by second click).</li><li>Patients never appear here and can’t get a staff role through registration (AC-037).</li><li>Not in the PRD: how a new staff member sets their first password. Question for the product owner.</li><li>Admin device isn’t stated (PRD Open Question 8); drawn as one card that works on desktop and phone.</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>
