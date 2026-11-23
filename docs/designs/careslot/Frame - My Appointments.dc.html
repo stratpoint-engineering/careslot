@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-008 My Appointments — Epic E003 — serves US-004, US-005, FR-APPT-001, FR-APPT-002, AC-013, AC-014, AC-015, AC-016, AC-017 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-008 My Appointments</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span><span class="spacer"></span><a href="Frame - My Appointments.dc.html">My appointments</a><span class="hint">Maria Santos</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default — just booked</p>
+<div class="card">
+<h1>My appointments</h1><p class="ok">Booked: Tue 12 Oct 2027, 09:00 with Dr. Ana Reyes.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A<br><button class="btn">Cancel</button></li></ul>
+<a class="btn" href="Frame - Book Clinic And Doctor.dc.html">Book an appointment</a>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no upcoming appointments</p>
+<div class="card">
+<h1>My appointments</h1><p class="hint">You have no upcoming appointments.</p>
+<ul class="list"></ul>
+<a class="btn" href="Frame - Book Clinic And Doctor.dc.html">Book an appointment</a>
+</div>
+<!-- state: loading -->
+<p class="state">Loading</p>
+<div class="card">
+<h1>My appointments</h1><p class="hint">Loading…</p>
+<ul class="list"></ul>
+<a class="btn" href="Frame - Book Clinic And Doctor.dc.html">Book an appointment</a>
+</div>
+<!-- state: error -->
+<p class="state">Error — cancel failed</p>
+<div class="card">
+<h1>My appointments</h1><p class="err">Couldn’t cancel your appointment. Try again.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A<br><button class="btn">Cancel</button></li></ul>
+<a class="btn" href="Frame - Book Clinic And Doctor.dc.html">Book an appointment</a>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — within 2 hours, and 2 appointments held</p>
+<div class="card">
+<h1>My appointments</h1>
+<ul class="list"><li><strong>Today, 10:20</strong><br>Dr. Ana Reyes · Clinic A<br><button class="btn" disabled>Cancel</button> <span class="hint">Starts in less than 2 hours. Call the front desk to cancel.</span></li><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ben Lim · Clinic B<br><button class="btn">Cancel</button></li></ul>
+<button class="btn" disabled>Book an appointment</button><p class="hint">You have 2 upcoming appointments, the most you can hold.</p>
+</div>
+<p class="state">Confirm cancel (second click)</p>
+<div class="card">
+<h1>My appointments</h1>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A<br><span class="err">Cancel this appointment? The time becomes free for others.</span><br><button class="btn">Yes, cancel</button> <a href="#">Keep it</a></li></ul>
+<a class="btn" href="Frame - Book Clinic And Doctor.dc.html">Book an appointment</a>
+</div>
+<section class="notes"><h2>DES-008 · My Appointments</h2><p>Epic E003 · serves US-004, US-005, FR-APPT-001, FR-APPT-002, AC-013, AC-014, AC-015, AC-016, AC-017</p><ul><li>Cancel needs a second click (“Yes, cancel”); then the row disappears and a green line “Cancelled.” shows (AC-015).</li><li>Within 2 hours of the start, Cancel is disabled with the call-the-desk hint (AC-016).</li><li>Shows only the signed-in patient’s own appointments (AC-014).</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

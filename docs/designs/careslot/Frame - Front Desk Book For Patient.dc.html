@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-010 Front Desk Book For Patient — Epic E004 — serves US-008, FR-DESK-002, AC-023, AC-024, AC-025, AC-026 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-010 Front Desk Book For Patient</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot · Front desk</span><a href="Frame - Front Desk Day View.dc.html">Day view</a><a href="Frame - Front Desk Book For Patient.dc.html">Book for patient</a><span class="spacer"></span><span class="hint">Joy (front desk)</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default — patient found, slot from the day view</p>
+<div class="card">
+<h1>Book for patient</h1><div class="field"><label for="q">Find patient (name, email or phone)</label><input id="q" value="Santos"></div><ul class="list"><li><strong>Maria Santos</strong> · maria.santos@example.com · 0917 000 0000 <a class="btn" href="#">Select</a></li></ul><h2>Appointment</h2>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:20</strong> · Dr. Ana Reyes · Clinic A<br><span class="hint">Patient: Maria Santos</span></li></ul>
+<div class="field"><label for="br">Reason for visit</label><textarea id="br" rows="2">Fever since yesterday</textarea></div>
+<button class="btn">Book</button>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no patient found, create a record</p>
+<div class="card">
+<h1>Book for patient</h1><div class="field"><label for="q">Find patient (name, email or phone)</label><input id="q" value="Garcia"></div><p class="hint">No patient found. Create a record:</p>
+<div class="field"><label for="nn">Full name</label><input id="nn" value="Pedro Garcia"></div>
+<div class="field"><label for="ne">Email</label><input id="ne" type="email" value=""><span class="hint">Needed for the email reminder.</span></div>
+<div class="field"><label for="np">Phone</label><input id="np" value="0918 000 0000"></div>
+<button class="btn">Create record</button>
+</div>
+<!-- state: error -->
+<p class="state">Error — reason missing</p>
+<div class="card">
+<h1>Book for patient</h1><h2>Appointment</h2>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:20</strong> · Dr. Ana Reyes · Clinic A<br><span class="hint">Patient: Maria Santos</span></li></ul>
+<div class="field"><label for="br">Reason for visit</label><textarea id="br" rows="2"></textarea><span class="err">Enter the reason for the visit.</span></div>
+<button class="btn">Book</button>
+</div>
+<!-- state: error -->
+<p class="state">Error — slot just taken</p>
+<div class="card">
+<h1>Book for patient</h1><h2>Appointment</h2><p class="err">08:20 was just booked (online). <a href="Frame - Front Desk Day View.dc.html">Back to the day view</a>.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:20</strong> · Dr. Ana Reyes · Clinic A<br><span class="hint">Patient: Maria Santos</span></li></ul>
+<div class="field"><label for="br">Reason for visit</label><textarea id="br" rows="2">Fever since yesterday</textarea></div>
+<button class="btn" disabled>Book</button>
+</div>
+<!-- state: error -->
+<p class="state">Error — patient already has 2 upcoming appointments</p>
+<div class="card">
+<h1>Book for patient</h1><h2>Appointment</h2><p class="err">Maria Santos already has 2 upcoming appointments. Cancel one before booking another.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:20</strong> · Dr. Ana Reyes · Clinic A<br><span class="hint">Patient: Maria Santos</span></li></ul>
+<div class="field"><label for="br">Reason for visit</label><textarea id="br" rows="2">Fever since yesterday</textarea></div>
+<button class="btn" disabled>Book</button>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — busy while booking</p>
+<div class="card">
+<h1>Book for patient</h1><h2>Appointment</h2>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 08:20</strong> · Dr. Ana Reyes · Clinic A<br><span class="hint">Patient: Maria Santos</span></li></ul>
+<div class="field"><label for="br">Reason for visit</label><textarea id="br" rows="2">Fever since yesterday</textarea></div>
+<button class="btn" disabled>Booking…</button>
+</div>
+<section class="notes"><h2>DES-010 · Front Desk Book For Patient</h2><p>Epic E004 · serves US-008, FR-DESK-002, AC-023, AC-024, AC-025, AC-026</p><ul><li>Opened from a free slot’s Book link (DES-009), so the slot is filled in. Walk-ins are booked the same way.</li><li>Search runs as you type (htmx). Selecting a patient fills the Appointment block.</li><li>No override of the 2-appointment limit for staff (AC-026).</li><li>After Book: back to the day view; the slot shows the patient.</li><li>Breakpoints: desktop only (staff work on desktops, PRD personas).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-006 Book Date And Slot — Epic E003 — serves US-003, FR-BOOK-002, FR-BOOK-003, AC-007, AC-008, AC-012 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-006 Book Date And Slot</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span><span class="spacer"></span><a href="Frame - My Appointments.dc.html">My appointments</a><span class="hint">Maria Santos</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default — free 20-minute times</p>
+<div class="card">
+<h1>Pick a time</h1>
+<p class="hint">Step 2 of 3 · Dr. Ana Reyes · Clinic A</p>
+<div class="field"><label for="dt">Date</label><input id="dt" type="date" value="2027-10-12"><span class="hint">You can book up to 30 days ahead.</span></div>
+<h2>Free times on Tue 12 Oct</h2>
+<div class="slots"><a class="btn" href="Frame - Book Reason And Confirm.dc.html">08:00</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">08:20</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">09:00</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">09:40</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">10:20</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">11:00</a><a class="btn" href="Frame - Book Reason And Confirm.dc.html">11:40</a></div>
+<p class="hint"><a href="Frame - Book Clinic And Doctor.dc.html">Back</a></p>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no free times that day</p>
+<div class="card">
+<h1>Pick a time</h1>
+<p class="hint">Step 2 of 3 · Dr. Ana Reyes · Clinic A</p>
+<div class="field"><label for="dt">Date</label><input id="dt" type="date" value="2027-10-12"><span class="hint">You can book up to 30 days ahead.</span></div>
+<h2>Free times on Tue 12 Oct</h2>
+<p class="hint">No free times on Tue 12 Oct. Try another date.</p>
+<p class="hint"><a href="Frame - Book Clinic And Doctor.dc.html">Back</a></p>
+</div>
+<!-- state: loading -->
+<p class="state">Loading</p>
+<div class="card">
+<h1>Pick a time</h1>
+<p class="hint">Step 2 of 3 · Dr. Ana Reyes · Clinic A</p>
+<div class="field"><label for="dt">Date</label><input id="dt" type="date" value="2027-10-12"><span class="hint">You can book up to 30 days ahead.</span></div>
+<h2>Free times on Tue 12 Oct</h2>
+<p class="hint">Loading…</p>
+<p class="hint"><a href="Frame - Book Clinic And Doctor.dc.html">Back</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — times couldn’t load</p>
+<div class="card">
+<h1>Pick a time</h1>
+<p class="hint">Step 2 of 3 · Dr. Ana Reyes · Clinic A</p>
+<div class="field"><label for="dt">Date</label><input id="dt" type="date" value="2027-10-12"><span class="hint">You can book up to 30 days ahead.</span></div>
+<h2>Free times on Tue 12 Oct</h2>
+<p class="err">Couldn’t load free times. <a href="#">Try again</a>.</p>
+<p class="hint"><a href="Frame - Book Clinic And Doctor.dc.html">Back</a></p>
+</div>
+<section class="notes"><h2>DES-006 · Book Date And Slot</h2><p>Epic E003 · serves US-003, FR-BOOK-002, FR-BOOK-003, AC-007, AC-008, AC-012</p><ul><li>Changing the date reloads the free times (htmx). The date picker allows today up to 30 days ahead only (AC-007).</li><li>Only free times that haven’t started are shown; a time starting in a few minutes is still offered (AC-008).</li><li>Each time is a Button; tapping it goes to step 3.</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

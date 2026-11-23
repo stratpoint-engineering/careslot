@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-005 Book Clinic And Doctor — Epic E003 — serves US-003, FR-BOOK-001, AC-006, AC-012 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-005 Book Clinic And Doctor</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span><span class="spacer"></span><a href="Frame - My Appointments.dc.html">My appointments</a><span class="hint">Maria Santos</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Book an appointment</h1>
+<p class="hint">Step 1 of 3</p>
+<div class="field"><label for="c">Clinic</label><select id="c"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<div class="field"><label for="doc">Doctor</label><select id="doc"><option>Choose a doctor</option><option>Dr. Ana Reyes</option><option>Dr. Ben Lim</option></select></div>
+<button class="btn">Next: pick a time</button>
+</div>
+<!-- state: loading -->
+<p class="state">Loading — doctors of the chosen clinic</p>
+<div class="card">
+<h1>Book an appointment</h1>
+<p class="hint">Step 1 of 3</p>
+<div class="field"><label for="c">Clinic</label><select id="c"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<div class="field"><label for="doc">Doctor</label><select id="doc"><option>Loading…</option></select><span class="hint">Loading…</span></div>
+<button class="btn" disabled>Next: pick a time</button>
+</div>
+<!-- state: error -->
+<p class="state">Error — doctors couldn’t load</p>
+<div class="card">
+<h1>Book an appointment</h1>
+<p class="hint">Step 1 of 3</p>
+<div class="field"><label for="c">Clinic</label><select id="c"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<div class="field"><label for="doc">Doctor</label><select id="doc"><option>—</option></select><span class="err">Couldn’t load doctors. <a href="#">Try again</a>.</span></div>
+<button class="btn" disabled>Next: pick a time</button>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — no doctor chosen yet</p>
+<div class="card">
+<h1>Book an appointment</h1>
+<p class="hint">Step 1 of 3</p>
+<div class="field"><label for="c">Clinic</label><select id="c"><option>Clinic A</option><option>Clinic B</option><option>Clinic C</option></select></div>
+<div class="field"><label for="doc">Doctor</label><select id="doc"><option>Choose a doctor</option><option>Dr. Ana Reyes</option><option>Dr. Ben Lim</option></select></div>
+<button class="btn" disabled>Next: pick a time</button>
+</div>
+<section class="notes"><h2>DES-005 · Book Clinic And Doctor</h2><p>Epic E003 · serves US-003, FR-BOOK-001, AC-006, AC-012</p><ul><li>Changing the clinic reloads the Doctor list (htmx) with only that clinic’s doctors (AC-006).</li><li>Next stays disabled until a doctor is chosen.</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

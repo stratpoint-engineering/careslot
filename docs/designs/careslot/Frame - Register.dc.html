@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-001 Register — Epic E001 — serves US-001, FR-AUTH-001, AC-001, AC-002 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-001 Register</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Create your account</h1>
+<div class="field"><label for="n">Full name</label><input id="n" value="Maria Santos"></div>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••••"></div>
+<button class="btn">Create account</button>
+<p class="hint">Already have an account? <a href="Frame - Sign In.dc.html">Sign in</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — email already has an account, name missing</p>
+<div class="card">
+<h1>Create your account</h1>
+<div class="field"><label for="n">Full name</label><input id="n" value=""><span class="err">Enter your full name.</span></div>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"><span class="err">An account with this email already exists. <a href="Frame - Sign In.dc.html">Sign in</a> instead.</span></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••••"></div>
+<button class="btn">Create account</button>
+<p class="hint">Already have an account? <a href="Frame - Sign In.dc.html">Sign in</a></p>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — busy while the account is created</p>
+<div class="card">
+<h1>Create your account</h1>
+<div class="field"><label for="n">Full name</label><input id="n" value="Maria Santos"></div>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••••"></div>
+<button class="btn" disabled>Creating account…</button>
+<p class="hint">Already have an account? <a href="Frame - Sign In.dc.html">Sign in</a></p>
+</div>
+<section class="notes"><h2>DES-001 · Register</h2><p>Epic E001 · serves US-001, FR-AUTH-001, AC-001, AC-002</p><ul><li>Create account: the button shows “Creating account…” and is disabled until the server answers; then the patient lands on Book (DES-005).</li><li>Errors are inline under the field that caused them (no toasts).</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

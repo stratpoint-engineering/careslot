@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-012 Doctor My Day — Epic E004 — serves US-011, FR-DOC-001, AC-032, AC-033, AC-034 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-012 Doctor My Day</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot · Doctor</span><a href="Frame - Doctor My Day.dc.html">My day</a><span class="spacer"></span><span class="hint">Dr. Ana Reyes</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Today · Tue 12 Oct 2027</h1><p class="hint">Dr. Ana Reyes · Clinic A · read-only</p><ul class="list">
+<li><strong>08:00</strong> · Maria Santos<br><span class="hint">Cough for two weeks</span></li>
+<li><strong>08:40</strong> · Jose Bautista<br><span class="hint">Blood pressure check</span></li>
+<li><strong>10:20</strong> · Ana Cruz<br><span class="hint">Follow-up on lab results</span></li></ul>
+</div>
+<!-- state: empty -->
+<p class="state">Empty — no appointments today</p>
+<div class="card">
+<h1>Today · Tue 12 Oct 2027</h1><p class="hint">Dr. Ana Reyes · Clinic A · read-only</p><p class="hint">No appointments today.</p>
+</div>
+<!-- state: loading -->
+<p class="state">Loading</p>
+<div class="card">
+<h1>Today · Tue 12 Oct 2027</h1><p class="hint">Dr. Ana Reyes · Clinic A · read-only</p><p class="hint">Loading…</p>
+</div>
+<!-- state: error -->
+<p class="state">Error</p>
+<div class="card">
+<h1>Today · Tue 12 Oct 2027</h1><p class="hint">Dr. Ana Reyes · Clinic A · read-only</p><p class="err">Couldn’t load your day. <a href="#">Try again</a>.</p>
+</div>
+<section class="notes"><h2>DES-012 · Doctor My Day</h2><p>Epic E004 · serves US-011, FR-DOC-001, AC-032, AC-033, AC-034</p><ul><li>Read-only: no buttons; the doctor sees only their own appointments, in time order (AC-032 – AC-034).</li><li>Breakpoints: desktop only (staff work on desktops, PRD personas).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

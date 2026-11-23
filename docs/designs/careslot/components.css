@@ -1,0 +1,29 @@
+/* CareSlot components — built only from tokens.css and the design system's components (docs/designs/design-system/README.md). */
+body{margin:0;font-family:var(--font-sans);background:var(--surface);color:var(--foreground);line-height:1.45}
+a{color:var(--primary)}
+h1{font-size:20px;margin:0 0 16px} h2{font-size:16px;margin:0 0 8px}
+.top{display:flex;align-items:center;gap:16px;padding:10px 16px;border-bottom:1px solid var(--border);background:var(--background);flex-wrap:wrap}
+.top img{width:28px;height:28px}
+.top .brand{font-weight:600}
+.top .spacer{flex:1}
+.card{background:var(--background);border:1px solid var(--border);border-radius:var(--radius);padding:20px;max-width:420px;margin:24px auto;box-sizing:border-box}
+.cards{display:flex;gap:16px;align-items:flex-start;padding:0 16px;overflow-x:auto}
+.cards .card{margin:16px 0;flex:0 0 360px}
+.btn{background:var(--primary);color:var(--primary-foreground);border:0;border-radius:var(--radius);padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+.btn[disabled]{background:var(--muted);color:var(--muted-foreground);cursor:not-allowed}
+.field{margin:0 0 14px}
+.field label{display:block;font-size:14px;margin-bottom:4px}
+.field input,.field select,.field textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:var(--radius);padding:9px 10px;font:inherit;background:var(--background);color:var(--foreground)}
+.field .err{display:block;margin-top:4px}
+.hint{color:var(--muted-foreground);font-size:13px}
+.err{color:var(--destructive);font-size:13px}
+.ok{color:var(--success)} .warn{color:var(--warning)}
+.list{list-style:none;margin:0 0 12px;padding:0}
+.list li{padding:10px 0;border-top:1px solid var(--border)}
+.slots{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.state{max-width:420px;margin:32px auto 0;padding:0 16px;font-size:12px;color:var(--muted-foreground);text-transform:uppercase;letter-spacing:.05em}
+.wide .state{max-width:none}
+.notes{max-width:420px;margin:32px auto 48px;padding:0 16px;font-size:13px;color:var(--muted-foreground)}
+.wide .notes{max-width:none}
+.notes h2{color:var(--foreground)}
+@media (max-width:452px){.card{margin:16px}}

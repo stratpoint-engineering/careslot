@@ -1,0 +1,286 @@
+{
+  "module": "careslot",
+  "format_version": 1,
+  "sources": [
+    "docs/designs/careslot"
+  ],
+  "tokens": {
+    "light": {
+      "--background": "#ffffff",
+      "--foreground": "#1b2430",
+      "--surface": "#f6f8fa",
+      "--primary": "#0f766e",
+      "--primary-foreground": "#ffffff",
+      "--muted": "#eef2f5",
+      "--muted-foreground": "#4f5d6b",
+      "--border": "#d5dde5",
+      "--destructive": "#b42318",
+      "--success": "#15803d",
+      "--warning": "#9a5b00",
+      "--radius": "0.5rem",
+      "--font-sans": "Inter, system-ui, sans-serif"
+    },
+    "dark": {
+      "--background": "#10161c",
+      "--foreground": "#e6ecf1",
+      "--surface": "#17202a",
+      "--primary": "#2dd4bf",
+      "--primary-foreground": "#06201d",
+      "--muted": "#1f2a35",
+      "--muted-foreground": "#a7b4c1",
+      "--border": "#2c3946",
+      "--destructive": "#f97066",
+      "--success": "#4ade80",
+      "--warning": "#fbbf24"
+    }
+  },
+  "token_sources": [
+    "tokens.css"
+  ],
+  "screens": [
+    {
+      "id": "DES-005",
+      "name": "Book Clinic And Doctor",
+      "frame": "Frame - Book Clinic And Doctor.dc.html",
+      "component": "",
+      "states": [
+        "loading",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-003",
+        "FR-BOOK-001",
+        "AC-006",
+        "AC-012"
+      ]
+    },
+    {
+      "id": "DES-006",
+      "name": "Book Date And Slot",
+      "frame": "Frame - Book Date And Slot.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error"
+      ],
+      "trace_ids": [
+        "US-003",
+        "FR-BOOK-002",
+        "FR-BOOK-003",
+        "AC-007",
+        "AC-008",
+        "AC-012"
+      ]
+    },
+    {
+      "id": "DES-007",
+      "name": "Book Reason And Confirm",
+      "frame": "Frame - Book Reason And Confirm.dc.html",
+      "component": "",
+      "states": [
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-003",
+        "FR-BOOK-004",
+        "FR-BOOK-005",
+        "FR-BOOK-006",
+        "AC-009",
+        "AC-010",
+        "AC-011"
+      ]
+    },
+    {
+      "id": "DES-012",
+      "name": "Doctor My Day",
+      "frame": "Frame - Doctor My Day.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error"
+      ],
+      "trace_ids": [
+        "US-011",
+        "FR-DOC-001",
+        "AC-032",
+        "AC-033",
+        "AC-034"
+      ]
+    },
+    {
+      "id": "DES-010",
+      "name": "Front Desk Book For Patient",
+      "frame": "Frame - Front Desk Book For Patient.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-008",
+        "FR-DESK-002",
+        "AC-023",
+        "AC-024",
+        "AC-025",
+        "AC-026"
+      ]
+    },
+    {
+      "id": "DES-009",
+      "name": "Front Desk Day View",
+      "frame": "Frame - Front Desk Day View.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error"
+      ],
+      "trace_ids": [
+        "US-007",
+        "FR-DESK-001",
+        "AC-021",
+        "AC-022"
+      ]
+    },
+    {
+      "id": "DES-011",
+      "name": "Front Desk Move Or Cancel",
+      "frame": "Frame - Front Desk Move Or Cancel.dc.html",
+      "component": "",
+      "states": [
+        "loading",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-009",
+        "US-010",
+        "FR-DESK-003",
+        "FR-DESK-004",
+        "AC-027",
+        "AC-028",
+        "AC-030",
+        "AC-031"
+      ]
+    },
+    {
+      "id": "DES-008",
+      "name": "My Appointments",
+      "frame": "Frame - My Appointments.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-004",
+        "US-005",
+        "FR-APPT-001",
+        "FR-APPT-002",
+        "AC-013",
+        "AC-014",
+        "AC-015",
+        "AC-016",
+        "AC-017"
+      ]
+    },
+    {
+      "id": "DES-001",
+      "name": "Register",
+      "frame": "Frame - Register.dc.html",
+      "component": "",
+      "states": [
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-001",
+        "FR-AUTH-001",
+        "AC-001",
+        "AC-002"
+      ]
+    },
+    {
+      "id": "DES-013",
+      "name": "Reminder Email",
+      "frame": "Frame - Reminder Email.dc.html",
+      "component": "",
+      "states": [],
+      "trace_ids": [
+        "US-006",
+        "FR-NOTIF-001",
+        "AC-018"
+      ]
+    },
+    {
+      "id": "DES-002",
+      "name": "Sign In",
+      "frame": "Frame - Sign In.dc.html",
+      "component": "",
+      "states": [
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-002",
+        "FR-AUTH-002",
+        "FR-AUTH-003",
+        "FR-AUTH-004",
+        "AC-003",
+        "AC-004",
+        "AC-005"
+      ]
+    },
+    {
+      "id": "DES-003",
+      "name": "Staff Accounts",
+      "frame": "Frame - Staff Accounts.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-012",
+        "FR-ADMIN-001",
+        "AC-035",
+        "AC-036",
+        "AC-037"
+      ]
+    },
+    {
+      "id": "DES-004",
+      "name": "Working Hours",
+      "frame": "Frame - Working Hours.dc.html",
+      "component": "",
+      "states": [
+        "empty",
+        "loading",
+        "error",
+        "disabled"
+      ],
+      "trace_ids": [
+        "US-013",
+        "FR-ADMIN-002",
+        "FR-BOOK-003",
+        "AC-038",
+        "AC-039"
+      ]
+    }
+  ],
+  "exports": [],
+  "assets": [
+    "assets/careslot-logo.svg"
+  ],
+  "unmatched_colours": {},
+  "unrecognised": []
+}

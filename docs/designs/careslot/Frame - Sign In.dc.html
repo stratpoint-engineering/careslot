@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-002 Sign In — Epic E001 — serves US-002, FR-AUTH-002, FR-AUTH-003, FR-AUTH-004, AC-003, AC-004, AC-005 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-002 Sign In</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Sign in</h1>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••"></div>
+<button class="btn">Sign in</button>
+<p class="hint">New patient? <a href="Frame - Register.dc.html">Create an account</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — wrong email or password</p>
+<div class="card">
+<h1>Sign in</h1><p class="err">Email or password is wrong.</p>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••"></div>
+<button class="btn">Sign in</button>
+<p class="hint">New patient? <a href="Frame - Register.dc.html">Create an account</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — account locked after 5 wrong passwords</p>
+<div class="card">
+<h1>Sign in</h1><p class="warn">Too many wrong passwords. This account is locked for 15 minutes.</p>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••"></div>
+<button class="btn" disabled>Sign in</button>
+<p class="hint">New patient? <a href="Frame - Register.dc.html">Create an account</a></p>
+</div>
+<p class="state">Signed out after 30 minutes idle</p>
+<div class="card">
+<h1>Sign in</h1><p class="hint">You were signed out after 30 minutes without activity. Sign in again.</p>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••"></div>
+<button class="btn">Sign in</button>
+<p class="hint">New patient? <a href="Frame - Register.dc.html">Create an account</a></p>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — busy while signing in</p>
+<div class="card">
+<h1>Sign in</h1>
+<div class="field"><label for="e">Email</label><input id="e" type="email" value="maria.santos@example.com"></div>
+<div class="field"><label for="p">Password</label><input id="p" type="password" value="••••••••"></div>
+<button class="btn" disabled>Signing in…</button>
+<p class="hint">New patient? <a href="Frame - Register.dc.html">Create an account</a></p>
+</div>
+<section class="notes"><h2>DES-002 · Sign In</h2><p>Epic E001 · serves US-002, FR-AUTH-002, FR-AUTH-003, FR-AUTH-004, AC-003, AC-004, AC-005</p><ul><li>Used by every user (patients, front desk, doctors, admin). After sign-in each role lands on its home: patient → My appointments, front desk → Day view, doctor → My day, admin → Staff accounts.</li><li>Opening any page with patient data while signed out leads here (AC-003).</li><li>Locked: the Sign in button stays disabled for this account for 15 minutes; after that the correct password works (AC-004).</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first). Staff see the same card on desktop.</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- CareSlot · DES-007 Book Reason And Confirm — Epic E003 — serves US-003, FR-BOOK-004, FR-BOOK-005, FR-BOOK-006, AC-009, AC-010, AC-011 -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES-007 Book Reason And Confirm</title>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css"></head>
+<body>
+<header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span><span class="spacer"></span><a href="Frame - My Appointments.dc.html">My appointments</a><span class="hint">Maria Santos</span><a href="Frame - Sign In.dc.html">Sign out</a></header>
+<p class="state">Default</p>
+<div class="card">
+<h1>Confirm</h1>
+<p class="hint">Step 3 of 3</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<div class="field"><label for="r">What is the visit for?</label><textarea id="r" rows="3">Cough for two weeks</textarea></div>
+<button class="btn">Book appointment</button>
+<p class="hint"><a href="Frame - Book Date And Slot.dc.html">Pick another time</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — reason missing</p>
+<div class="card">
+<h1>Confirm</h1>
+<p class="hint">Step 3 of 3</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<div class="field"><label for="r">What is the visit for?</label><textarea id="r" rows="3"></textarea><span class="err">Tell us what the visit is for.</span></div>
+<button class="btn">Book appointment</button>
+<p class="hint"><a href="Frame - Book Date And Slot.dc.html">Pick another time</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — the time was just booked by someone else</p>
+<div class="card">
+<h1>Confirm</h1>
+<p class="hint">Step 3 of 3</p><p class="err">09:00 was just booked by someone else. <a href="Frame - Book Date And Slot.dc.html">Pick another time</a>.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<div class="field"><label for="r">What is the visit for?</label><textarea id="r" rows="3">Cough for two weeks</textarea></div>
+<button class="btn" disabled>Book appointment</button>
+<p class="hint"><a href="Frame - Book Date And Slot.dc.html">Pick another time</a></p>
+</div>
+<!-- state: error -->
+<p class="state">Error — already 2 upcoming appointments</p>
+<div class="card">
+<h1>Confirm</h1>
+<p class="hint">Step 3 of 3</p><p class="err">You already have 2 upcoming appointments, the most you can hold. <a href="Frame - My Appointments.dc.html">Cancel one</a> to book another.</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<div class="field"><label for="r">What is the visit for?</label><textarea id="r" rows="3">Cough for two weeks</textarea></div>
+<button class="btn" disabled>Book appointment</button>
+<p class="hint"><a href="Frame - Book Date And Slot.dc.html">Pick another time</a></p>
+</div>
+<!-- state: disabled -->
+<p class="state">Disabled — busy while booking</p>
+<div class="card">
+<h1>Confirm</h1>
+<p class="hint">Step 3 of 3</p>
+<ul class="list"><li><strong>Tue 12 Oct 2027, 09:00</strong><br>Dr. Ana Reyes · Clinic A</li></ul>
+<div class="field"><label for="r">What is the visit for?</label><textarea id="r" rows="3">Cough for two weeks</textarea></div>
+<button class="btn" disabled>Booking…</button>
+<p class="hint"><a href="Frame - Book Date And Slot.dc.html">Pick another time</a></p>
+</div>
+<section class="notes"><h2>DES-007 · Book Reason And Confirm</h2><p>Epic E003 · serves US-003, FR-BOOK-004, FR-BOOK-005, FR-BOOK-006, AC-009, AC-010, AC-011</p><ul><li>Book: button shows “Booking…”; on success the patient lands on My appointments with a green “Booked” line (DES-008).</li><li>The slot-taken and 2-appointment errors come from the server at the moment of booking (AC-010, AC-011).</li><li>Breakpoints: one layout serves all widths: one card, max 420 px, centred; below 452 px it fills the width with 16 px margins (phones first).</li><li>Session timeout: after 30 minutes without activity the next click opens Sign in with the idle message (DES-002).</li><li>Names, dates and clinics in this frame are sample content.</li></ul></section>
+</body></html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- CareSlot · Design System — reference board, not a screen. Built from docs/designs/design-system (tokens.css + components). -->
+<html lang="en"><head><meta charset="utf-8"><title>Design System</title>
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="components.css"><style>
+.sw{display:inline-block;width:40px;height:40px;border:1px solid var(--border);border-radius:var(--radius);margin:0 6px 6px 0;vertical-align:middle}</style></head>
+<body><header class="top"><img src="assets/careslot-logo.svg" alt=""><span class="brand">CareSlot</span></header>
+<div class="card"><h1>Colour roles</h1>
+<div><span class="sw" style="background:var(--background)"></span><code>--background</code></div><div><span class="sw" style="background:var(--foreground)"></span><code>--foreground</code></div><div><span class="sw" style="background:var(--surface)"></span><code>--surface</code></div><div><span class="sw" style="background:var(--primary)"></span><code>--primary</code></div><div><span class="sw" style="background:var(--primary-foreground)"></span><code>--primary-foreground</code></div><div><span class="sw" style="background:var(--muted)"></span><code>--muted</code></div><div><span class="sw" style="background:var(--muted-foreground)"></span><code>--muted-foreground</code></div><div><span class="sw" style="background:var(--border)"></span><code>--border</code></div><div><span class="sw" style="background:var(--destructive)"></span><code>--destructive</code></div><div><span class="sw" style="background:var(--success)"></span><code>--success</code></div><div><span class="sw" style="background:var(--warning)"></span><code>--warning</code></div>
+<p class="hint">Radius 8 px (--radius) · Font Inter (--font-sans) · dark mode via .dark</p></div>
+<div class="card"><h1>Components</h1>
+<h2>Button</h2><p><button class="btn">Book appointment</button> <button class="btn" disabled>Booking…</button> <button class="btn" disabled>Disabled</button></p>
+<h2>Field</h2><div class="field"><label for="x">Email</label><input id="x" value="maria@example"><span class="err">Enter a valid email address.</span></div>
+<h2>Hint</h2><p class="hint">You can book up to 30 days ahead.</p>
+<h2>Status</h2><p><span class="ok">Booked</span> · <span class="warn">Locked for 15 minutes</span> · <span class="err">Couldn’t cancel</span></p>
+<h2>Card</h2><p class="hint">Every block on this page is a Card: max 420 px, 20 px padding, 1 px border, radius 8 px.</p></div>
+<div class="card"><h1>Patterns agreed with the designer (2026-11-23)</h1><ul class="list">
+<li>Staff desktop day view: one Card per doctor, side by side.</li>
+<li>All actions use the one Button; Cancel / Disable confirm by a second click with a red question above.</li>
+<li>Loading: a Hint “Loading…” in place of the content; busy Buttons say “…ing”.</li>
+<li>Header: logo, links, the user’s name (Hint) and Sign out, built from tokens only.</li>
+<li>Errors inline next to their cause; no toasts.</li></ul></div>
+</body></html>
